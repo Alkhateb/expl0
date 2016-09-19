@@ -1,4 +1,34 @@
 <?php echo $this->fetch('head.phtml'); ?>
 <?php echo $this->fetch('header.phtml'); ?>
 <?php echo $this->fetch('messages.phtml'); ?>
+
+
+<div id="content">
+    <div>
+        <p>Latest Blocks</p>
+        <table id="blocks">
+
+        </table>
+    </div>
+    <div>
+        <p>Latest transactions</p>
+        <table id="transactions">
+            <thead>
+                <tr>
+                    <td>Hash</td>
+                    <td>Value</td>
+                </tr>
+            </thead>
+            <tbody id="transactions-body">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    var ws = new WS();
+    ws.init();
+</script>
+
 <?php echo $this->fetch('footer.phtml'); ?>
