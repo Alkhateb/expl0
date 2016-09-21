@@ -32,7 +32,7 @@ var WS = function() {
         var calAmount = amount / 100000000;
         var element = $('#transactions-body');
 
-        var result = "<tr><td>" + hash.substring(0, 10) + "..</td><td>"+ calAmount +"</td></tr>";
+        var result = "<tr><td><a href='/transaction/" + hash + "'>"  + hash + "</a></td><td>"+ calAmount +"</td></tr>";
         element.prepend(result);
 
     };

@@ -2,6 +2,97 @@
 <?php echo $this->fetch('header.phtml'); ?>
 <?php echo $this->fetch('messages.phtml'); ?>
 
+<?php $txInfo = $this->getAttribute('tx_info'); ?>
 
+<?php  $helper = $this->getAttribute('helper'); ?>
 
+<h1>Transaction info</h1>
+<div id="transaction-info">
+    <?php if($txInfo): ?>
+        <?php $status = $txInfo->block_height; ?>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="col-md-2">Key</th>
+                    <th class="col-md-6">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Hash</td>
+                    <td><?php echo $txInfo->hash; ?></td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td class="<?php echo $status ? 'success' : 'danger'; ?>">
+                        <?php echo  $status ? "CONFIRMED" : "UNCONFIRMED"; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Included in block</td>
+                    <td><?php echo $status ? $status : "none"; ?></td>
+                </tr>
+                <tr>
+                    <td>Size</td>
+                    <td><?php echo $txInfo->size; ?></td>
+                </tr>
+                <tr>
+                    <td>Input transactions</td>
+                    <td><?php echo $txInfo->vin_sz; ?></td>
+                </tr>
+                <tr>
+                    <td>Output transactions</td>
+                    <td><?php echo $txInfo->vout_sz; ?></td>
+                </tr>
+                <tr>
+                    <td>Amount</td>
+                    <td class="success"><?php echo $helper->toBtc($helper->getTransactionOutput($txInfo)); ?></td>
+                </tr>
+                <tr>
+                    <td>Fees</td>
+                    <td><?php echo $helper->toBtc($helper->getTransactionFees($txInfo)); ?></td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="col-md-2">Inputs</th>
+                    <th class="col-md-3">Address</th>
+                    <th class="col-md-3">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($txInfo->inputs as $input): ?>
+                    <tr>
+                        <td></td>
+                        <td><?php echo $input->prev_out->addr; ?></td>
+                        <td><?php echo $helper->toBtc($input->prev_out->value); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="col-md-2">Outputs</th>
+                <th class="col-md-3">Address</th>
+                <th class="col-md-3">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($txInfo->out as $output): ?>
+                <tr>
+                    <td></td>
+                    <td><?php echo $output->addr; ?></td>
+                    <td><?php echo $helper->toBtc($output->value); ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <span>No info for this transaction.</span>
+    <?php endif; ?>
+</div>
 <?php echo $this->fetch('footer.phtml'); ?>

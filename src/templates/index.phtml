@@ -2,21 +2,34 @@
 <?php echo $this->fetch('header.phtml'); ?>
 <?php echo $this->fetch('messages.phtml'); ?>
 
-
+<h1></h1>
 <div id="content">
     <div>
-        <p>Latest Blocks</p>
         <table id="blocks">
-
-        </table>
-    </div>
-    <div>
-        <p>Latest transactions</p>
-        <table id="transactions">
             <thead>
                 <tr>
-                    <td>Hash</td>
-                    <td>Value</td>
+                    <th>LATEST BLOCKS</th>
+                </tr>
+                <tr>
+                    <th class="col-md-4">Hash</th>
+                    <th class="col-md-6">Value</th>
+                </tr>
+            </thead>
+            <tbody id="blocks-body">
+
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div>
+        <table id="transactions" class="table">
+            <thead>
+                <tr>
+                    <th>LATEST TRANSACTIONS</th>
+                </tr>
+                <tr>
+                    <th class="col-md-4">Hash</th>
+                    <th class="col-md-6">Value</th>
                 </tr>
             </thead>
             <tbody id="transactions-body">

@@ -1,5 +1,11 @@
-#transactions {
+#transactions-body {
     height: 40%;
     width: 40%;
     overflow: scroll;
+}
+
+#transactions {
+    display: block;
+    height:40%;
+    overflow-y: scroll;
 }
