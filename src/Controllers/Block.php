@@ -25,4 +25,34 @@ class Block extends Base
         }
     }
 
+    // hash VARCHAR(50), height INTEGER, created_at datetime,
+    // relayed_by varchar(20), size decimal, transactions integer, total decimal
+    public function save(Request $request, Response $response, array $args) {
+        $params = $request->getParams();
+
+        if (!$params['hash'] || !$params['height'] || !$params['size']
+            || !$params['transactions'] || !$params['total']) {
+            // todo return error
+            return;
+        }
+
+        $nowDate = date('Y-m-d H:i:s');
+        $data = [
+            'hash'                  => $params['hash'],
+            'height'                => $params['height'],
+            'relayed_by'            => $params['relayed_by'],
+            'total'                 => $params['total'],
+            'size'                  => $params['size'],
+            'main_chain'            => $params['main_chain'],
+            'transactions'          => $params['transactions'],
+            'created_at'            => $nowDate,
+        ];
+
+        $res = $this->getModel('\Models\Block')->save($data);
+
+        if ($res) {
+            $this->_flash->addMessage('success', 'Transaction saved!');
+        }
+    }
+
 }
