@@ -8,4 +8,6 @@ interface IExplorer {
 
     public function getBlockData($hash);
 
+    public function getAddressBalance($address);
+
 }

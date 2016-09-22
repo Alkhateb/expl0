@@ -15,6 +15,7 @@ var WS = function() {
             var response = JSON.parse(onmsg.data);
             if (response.op == "block") {
                 self.appendBlockData(response.x);
+                self.saveBlock(response.x);
             } else {
                 self.appendTransactionData(response.x);
             }
@@ -23,7 +24,12 @@ var WS = function() {
 
     this.appendBlockData = function(block) {
         var index = block.blockIndex;
-        $('#blocks').prepend("<tr>" + index + "</tr>");
+        var bhash = "<td><a href='/block/" + block.hash + "'>" + block.hash+"</a></td>";
+        var size = "<td>" + block.size + "</td>";
+        var height = "<td>" + block.height + "</td>";
+        var txns = "<td>" + block.txIndexes.length + "</td>";
+        var result = "<tr>" + bhash + height + size + txns + "</tr>"
+        $('#blocks-body').prepend(result);
     };
 
     this.appendTransactionData = function(transaction) {
@@ -36,6 +42,23 @@ var WS = function() {
         element.prepend(result);
 
     };
+
+    this.saveBlock = function(block) {
+        var data = {
+            hash: block.hash,
+            height: block.height,
+            total: block.bits,
+            size: block.size,
+            transactions: block.txIndexes.length
+        };
+
+        $.ajax({
+            url: "/block/save",
+            method: "POST",
+            data: data,
+            dataType: "json"
+        });
+    }
 
 
 };

@@ -10,7 +10,7 @@ class Base
 
     public function __construct()
     {
-        $dsn = 'sqlite:/var/www/app/db/db.sqlite';
+        $dsn = 'sqlite:/var/www/btc/db/db.sqlite';
         $this->_db = new \Slim\PDO\Database($dsn);
     }
 

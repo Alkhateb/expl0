@@ -29,7 +29,7 @@ class Block extends Base
     // relayed_by varchar(20), size decimal, transactions integer, total decimal
     public function save(Request $request, Response $response, array $args) {
         $params = $request->getParams();
-
+        $request->getParams();
         if (!$params['hash'] || !$params['height'] || !$params['size']
             || !$params['transactions'] || !$params['total']) {
             // todo return error
@@ -40,10 +40,8 @@ class Block extends Base
         $data = [
             'hash'                  => $params['hash'],
             'height'                => $params['height'],
-            'relayed_by'            => $params['relayed_by'],
             'total'                 => $params['total'],
             'size'                  => $params['size'],
-            'main_chain'            => $params['main_chain'],
             'transactions'          => $params['transactions'],
             'created_at'            => $nowDate,
         ];

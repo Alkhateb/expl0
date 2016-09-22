@@ -2,21 +2,33 @@
 <?php echo $this->fetch('header.phtml'); ?>
 <?php echo $this->fetch('messages.phtml'); ?>
 
-<h1></h1>
+<?php $blocks = $this->getAttribute('blocks'); ?>
+
 <div id="content">
     <div>
-        <table id="blocks">
+        <table id="blocks" class="table">
             <thead>
                 <tr>
                     <th>LATEST BLOCKS</th>
                 </tr>
                 <tr>
-                    <th class="col-md-4">Hash</th>
-                    <th class="col-md-6">Value</th>
+                    <th class="col-md-2">Hash</th>
+                    <th class="col-md-2">Height</th>
+                    <th class="col-md-2">Size</th>
+                    <th class="col-md-2">Transactions</th>
                 </tr>
             </thead>
             <tbody id="blocks-body">
-
+                <?php foreach($blocks as $block): ?>
+                    <tr>
+                        <td>
+                            <a href="/block/<?php echo $block['hash']; ?>"><?php echo $block['hash']; ?></a>
+                        </td>
+                        <td><?php echo $block['height']; ?></td>
+                        <td><?php echo $block['size']; ?></td>
+                        <td><?php echo $block['transactions']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
